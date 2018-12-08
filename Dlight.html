@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<h1>D Light </h1>
+	<link rel="stylesheet" type="text/css" href="Dlight.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	</script>
+</head>
+<body>
+	<button onclick="On()" class="button1">HIDUP</button>	
+	<button onclick="Off()" class="button2">MATI</button>
+	<script>
+		var request = $.ajax({ 
+  		url: "http://arkademy.com",
+  		type: "GET"
+		});
+
+		function On(){
+		$.ajax({
+     url:'https://api.arkademy.com:8443/v0/arkana/device/IO/Kel10/gpio/control',
+            type : 'POST',
+            headers : {
+            'accept' : 'application/json',
+            'content-type' : 'application/json',
+            'authorization' : 'Bearer NDAxNzM2NTMuNjI2MzQ4ODE2Og=='
+           },
+           data : '{"controls":{"4":1,"5":1}}' , //data yang dikirimkan harus dalam STRING
+              success:function(response){
+                       //konversi dari javascript object ke string agar bisa di print
+                        var string_response=JSON.stringify(response);
+                        //variabel response berisi data response dari API
+                        alert(string_response);
+              },
+              error:function(err){
+               //variabel err berisi data error dari API (404,401,400,500)
+               alert("error!",err);
+              }
+            });
+          }
+
+          function Off(){
+		$.ajax({
+     url:'https://api.arkademy.com:8443/v0/arkana/device/IO/Kel10/gpio/control',
+            type : 'POST',
+            headers : {
+            'accept' : 'application/json',
+            'content-type' : 'application/json',
+            'authorization' : 'Bearer NDAxNzM2NTMuNjI2MzQ4ODE2Og=='
+           },
+           data : '{"controls":{"4":0,"5":0}}' , //data yang dikirimkan harus dalam STRING
+              success:function(response){
+                       //konversi dari javascript object ke string agar bisa di print
+                        var string_response=JSON.stringify(response);
+                        //variabel response berisi data response dari API
+                        alert(string_response);
+              },
+              error:function(err){
+               //variabel err berisi data error dari API (404,401,400,500)
+               alert("error!",err);
+              }
+            });
+          }
+	</script>
+</body>
+</html>
